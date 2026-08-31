@@ -1,2 +1,1 @@
-# DeltaWAM
-DeltaWAM: Delta World Action Models for Bimanual Manipulation
+# DeltaWAM: Delta World Action Models for Bimanual Manipulation
