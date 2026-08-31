@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DeltaWAM: Delta World Action Models for Bimanual Manipulation">
+  <title>DeltaWAM | Delta World Action Models</title>
+  <style>
+    :root {
+      --page: #0b1114;
+      --panel: #121d21;
+      --panel-2: #17262a;
+      --ink: #eef4f1;
+      --muted: #a5b6b3;
+      --faint: #70827f;
+      --line: #293b3e;
+      --mint: #7bdcc7;
+      --orange: #ffae72;
+      --blue: #8dbbff;
+    }
+
+    * { box-sizing: border-box; }
+
+    figure { margin: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--page);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      width: min(1360px, calc(100% - 56px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(11, 17, 20, .92);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 760;
+      letter-spacing: .02em;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--mint); }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible { color: var(--mint); }
+
+    .hero {
+      padding: 82px 0 76px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-inner {
+      max-width: 1010px;
+      min-width: 0;
+    }
+
+    h1 {
+      max-width: 1020px;
+      min-width: 0;
+      margin: 0;
+      font-size: clamp(42px, 5.3vw, 73px);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+      font-weight: 760;
+    }
+
+    h1 span { color: var(--mint); }
+
+    .authors {
+      display: flex;
+      flex-wrap: wrap;
+      min-width: 0;
+      gap: 8px 20px;
+      margin-top: 34px;
+      color: #d8e4e0;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .author { white-space: nowrap; }
+
+    sup {
+      color: var(--orange);
+      font-size: .65em;
+      line-height: 0;
+      margin-left: 2px;
+    }
+
+    .affiliations {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .notes {
+      margin-top: 13px;
+      color: var(--faint);
+      font-size: 12px;
+    }
+
+    .notes strong {
+      color: var(--orange);
+      font-weight: 650;
+    }
+
+    main { padding: 60px 0 90px; }
+
+    .section-head {
+      display: flex;
+      min-width: 0;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 29px;
+    }
+
+    .section-head h2 {
+      min-width: 0;
+      margin: 0;
+      font-size: clamp(32px, 4vw, 51px);
+      line-height: 1.05;
+      letter-spacing: -.035em;
+      font-weight: 730;
+    }
+
+    .section-head h2::after {
+      content: "";
+      display: block;
+      width: 72px;
+      height: 3px;
+      margin-top: 18px;
+      background: var(--mint);
+    }
+
+    .section-note {
+      max-width: 390px;
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .task-row + .task-row { margin-top: 46px; }
+
+    .task-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 13px;
+      margin: 0 0 16px;
+    }
+
+    .task-number {
+      color: var(--mint);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .task-title {
+      min-width: 0;
+      margin: 0;
+      color: #d9e6e2;
+      font-size: 18px;
+      font-weight: 670;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .demo-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      transition: border-color .2s ease, transform .2s ease, background-color .2s ease;
+    }
+
+    .demo-card:hover {
+      border-color: #55716f;
+      background: var(--panel-2);
+      transform: translateY(-2px);
+    }
+
+    .demo-visual {
+      display: grid;
+      grid-template-columns: minmax(0, 1.72fr) minmax(115px, .83fr);
+      gap: 3px;
+      padding: 3px;
+      background: #081012;
+    }
+
+    .main-view,
+    .wrist-view {
+      position: relative;
+      overflow: hidden;
+      background: #060b0d;
+    }
+
+    .main-view { aspect-ratio: 1.38 / 1; }
+
+    .wrist-stack {
+      display: grid;
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .wrist-view { min-height: 0; }
+
+    .demo-visual video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #060b0d;
+    }
+
+    .view-label {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 1;
+      padding: 4px 7px;
+      background: rgba(7, 14, 16, .82);
+      color: #e6efec;
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .main-view .view-label { color: var(--mint); }
+    .wrist-stack .wrist-view:first-child .view-label { color: var(--blue); }
+    .wrist-stack .wrist-view:last-child .view-label { color: var(--orange); }
+
+    .demo-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 52px;
+      padding: 12px 13px 13px;
+    }
+
+    .demo-name {
+      margin: 0;
+      color: #e2ece8;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .demo-code {
+      flex: 0 0 auto;
+      color: var(--faint);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 23px 0 31px;
+      color: var(--faint);
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .demo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { align-items: start; flex-direction: column; }
+      .section-note { max-width: 600px; text-align: left; }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: calc(100% - 30px); max-width: calc(100% - 30px); }
+      .topbar-inner { min-height: 59px; }
+      .nav { gap: 15px; font-size: 12px; }
+      .nav a:last-child { display: none; }
+      .hero { padding: 53px 0 48px; }
+      h1 { font-size: 39px; letter-spacing: -.035em; overflow-wrap: anywhere; word-break: break-word; }
+      h1, .section-head h2, .task-title { width: 100%; max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
+      .authors { margin-top: 27px; gap: 3px 13px; font-size: 14px; }
+      .affiliations { margin-top: 16px; font-size: 13px; }
+      .notes { font-size: 11px; line-height: 1.8; }
+      main { padding: 47px 0 64px; }
+      .section-head { margin-bottom: 25px; }
+      .section-head h2 { font-size: 34px; }
+      .task-row + .task-row { margin-top: 34px; }
+      .demo-grid { grid-template-columns: 1fr; gap: 14px; }
+      .demo-visual { grid-template-columns: minmax(0, 1.7fr) minmax(110px, .84fr); }
+      .footer-inner { display: block; }
+      .footer-inner span + span { display: block; margin-top: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="DeltaWAM home"><span>Delta</span>WAM</a>
+      <nav class="nav" aria-label="Page navigation">
+        <a href="#paper">Paper</a>
+        <a href="#evaluation">Real World Evaluation</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="top"></div>
+  <section class="hero" id="paper">
+    <div class="shell hero-inner">
+      <h1><span>DeltaWAM</span>: Delta World Action Models for Bimanual Manipulation</h1>
+
+      <div class="authors" aria-label="Authors">
+        <span class="author"><strong>Han Yan</strong><sup>1*</sup></span>
+        <span class="author"><strong>Zishang Xiang</strong><sup>1*</sup></span>
+        <span class="author"><strong>Haokai Jiang</strong><sup>1*</sup></span>
+        <span class="author"><strong>Zeyu Zhang</strong><sup>1*&dagger;</sup></span>
+        <span class="author"><strong>Yandong Guo</strong><sup>2</sup></span>
+        <span class="author"><strong>Boxin Shi</strong><sup>1</sup></span>
+        <span class="author"><strong>Hao Tang</strong><sup>1&ddagger;</sup></span>
+      </div>
+
+      <div class="affiliations">
+        <span><sup>1</sup> School of Computer Science, Peking University</span><br>
+        <span><sup>2</sup> AI<sup>2</sup> Robotics</span>
+      </div>
+
+      <div class="notes">
+        <strong>*</strong> Equal contribution.&nbsp;&nbsp;
+        <strong>&dagger;</strong> Project lead.&nbsp;&nbsp;
+        <strong>&ddagger;</strong> Corresponding author.
+      </div>
+    </div>
+  </section>
+
+  <main id="evaluation">
+    <div class="shell">
+      <div class="section-head">
+        <h2>Real World Evaluation</h2>
+      </div>
+
+      <section class="task-row" aria-labelledby="task-1-title">
+        <div class="task-heading">
+          <span class="task-number">Task 01</span>
+          <h3 class="task-title" id="task-1-title">Tabletop Organization</h3>
+        </div>
+        <div class="demo-grid">
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 1 main view"><source src="demo_speed2x_h264/task1_1/MOCEE0741.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 1 left eye-in-hand view"><source src="demo_speed2x_h264/task1_1/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 1 right eye-in-hand view"><source src="demo_speed2x_h264/task1_1/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T1 / 01</span></div>
+          </article>
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 2 main view"><source src="demo_speed2x_h264/task1_2/HNMFE0754.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 2 left eye-in-hand view"><source src="demo_speed2x_h264/task1_2/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 2 right eye-in-hand view"><source src="demo_speed2x_h264/task1_2/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T1 / 02</span></div>
+          </article>
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 3 main view"><source src="demo_speed2x_h264/task1_3/BOEAE2733.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 3 left eye-in-hand view"><source src="demo_speed2x_h264/task1_3/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 1 sample 3 right eye-in-hand view"><source src="demo_speed2x_h264/task1_3/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T1 / 03</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="task-row" aria-labelledby="task-2-title">
+        <div class="task-heading">
+          <span class="task-number">Task 02</span>
+          <h3 class="task-title" id="task-2-title">Sugar Cube Placement</h3>
+        </div>
+        <div class="demo-grid">
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 1 main view"><source src="demo_speed2x_h264/task2_1/CQTOE8499.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 1 left eye-in-hand view"><source src="demo_speed2x_h264/task2_1/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 1 right eye-in-hand view"><source src="demo_speed2x_h264/task2_1/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T2 / 01</span></div>
+          </article>
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 2 main view"><source src="demo_speed2x_h264/task2_2/HIQGE8733.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 2 left eye-in-hand view"><source src="demo_speed2x_h264/task2_2/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 2 right eye-in-hand view"><source src="demo_speed2x_h264/task2_2/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T2 / 02</span></div>
+          </article>
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 3 main view"><source src="demo_speed2x_h264/task2_3/JIJXE0574.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 3 left eye-in-hand view"><source src="demo_speed2x_h264/task2_3/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 2 sample 3 right eye-in-hand view"><source src="demo_speed2x_h264/task2_3/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T2 / 03</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="task-row" aria-labelledby="task-3-title">
+        <div class="task-heading">
+          <span class="task-number">Task 03</span>
+          <h3 class="task-title" id="task-3-title">Bowl Stacking</h3>
+        </div>
+        <div class="demo-grid">
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 1 main view"><source src="demo_speed2x_h264/task3_1/BELTE2057.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 1 left eye-in-hand view"><source src="demo_speed2x_h264/task3_1/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 1 right eye-in-hand view"><source src="demo_speed2x_h264/task3_1/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T3 / 01</span></div>
+          </article>
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 2 main view"><source src="demo_speed2x_h264/task3_2/QKQOE1476.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 2 left eye-in-hand view"><source src="demo_speed2x_h264/task3_2/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 2 right eye-in-hand view"><source src="demo_speed2x_h264/task3_2/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T3 / 02</span></div>
+          </article>
+          <article class="demo-card">
+            <div class="demo-visual">
+              <figure class="main-view">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 3 main view"><source src="demo_speed2x_h264/task3_3/UDYRE2653.mp4" type="video/mp4"></video>
+                <figcaption class="view-label">Eye-to-hand</figcaption>
+              </figure>
+              <div class="wrist-stack">
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 3 left eye-in-hand view"><source src="demo_speed2x_h264/task3_3/left_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Left eye-in-hand</figcaption>
+                </figure>
+                <figure class="wrist-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="Task 3 sample 3 right eye-in-hand view"><source src="demo_speed2x_h264/task3_3/right_wrist_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Right eye-in-hand</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T3 / 03</span></div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>DeltaWAM · Delta World Action Models</span>
+      <span>Bimanual manipulation demonstrations</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.demo-card').forEach((card) => {
+      const videos = [...card.querySelectorAll('video')];
+      let shortestDuration = 0;
+      let started = false;
+      let cycleStartedAt = 0;
+      let frameId = 0;
+
+      const allMetadataReady = () => videos.every((video) => (
+        Number.isFinite(video.duration) && video.duration > 0
+      ));
+
+      const playGroup = () => Promise.all(videos.map((video) => {
+        video.muted = true;
+        video.loop = false;
+        return video.play().catch(() => {});
+      }));
+
+      const runCycle = () => {
+        videos.forEach((video) => {
+          video.pause();
+          video.currentTime = 0;
+          video.loop = false;
+        });
+
+        playGroup().finally(() => {
+          cycleStartedAt = performance.now();
+          frameId = requestAnimationFrame(checkCycle);
+        });
+      };
+
+      const checkCycle = (now) => {
+        if (!started) return;
+        if (now - cycleStartedAt >= shortestDuration * 1000) {
+          runCycle();
+          return;
+        }
+        frameId = requestAnimationFrame(checkCycle);
+      };
+
+      const startGroup = () => {
+        if (started || !allMetadataReady()) return;
+        started = true;
+        shortestDuration = Math.min(...videos.map((video) => video.duration));
+        videos.forEach((video) => {
+          video.muted = true;
+          video.loop = false;
+          video.currentTime = 0;
+        });
+        playGroup().finally(() => {
+          cycleStartedAt = performance.now();
+          frameId = requestAnimationFrame(checkCycle);
+        });
+      };
+
+      videos.forEach((video) => {
+        video.muted = true;
+        video.loop = false;
+        video.addEventListener('loadedmetadata', startGroup);
+      });
+
+      startGroup();
+    });
+  </script>
+</body>
+</html>
