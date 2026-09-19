@@ -117,6 +117,14 @@
       line-height: 1.8;
     }
 
+    .author-row {
+      display: flex;
+      flex-wrap: wrap;
+      flex-basis: 100%;
+      min-width: 0;
+      gap: 8px 20px;
+    }
+
     .author { white-space: nowrap; }
 
     sup {
@@ -144,7 +152,119 @@
       font-weight: 650;
     }
 
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .resource-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 10px 18px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .resource-button svg { width: 17px; height: 17px; color: var(--mint); }
+    .resource-button:hover { border-color: var(--mint); background: var(--panel-2); }
+    .resource-button:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+
+    .teaser-wrap {
+      width: min(960px, 100%);
+      margin: 32px auto 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #060b0d;
+    }
+
+    .teaser-video { display: block; width: 100%; height: auto; }
+
     main { padding: 60px 0 90px; }
+
+    .method-section {
+      padding-bottom: 64px;
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 90px;
+    }
+
+    .method-section .section-head { margin-bottom: 38px; }
+
+    .method-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 44px;
+      margin: 0;
+    }
+
+    .method-row + .method-row {
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid var(--line);
+    }
+
+    .method-row-reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+    .method-row-reverse .method-image { grid-column: 2; grid-row: 1; }
+    .method-row-reverse .method-copy { grid-column: 1; grid-row: 1; }
+
+    .method-image {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      text-decoration: none;
+      cursor: zoom-in;
+    }
+
+    .method-image:hover { border-color: var(--mint); }
+    .method-image:focus-visible { outline: 2px solid var(--mint); outline-offset: 4px; }
+    .method-image img { display: block; width: 100%; height: auto; background: #fff; }
+
+    .figure-open {
+      display: block;
+      padding: 8px 12px;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: right;
+    }
+
+    .method-copy { min-width: 0; }
+
+    .method-copy h3 {
+      margin: 0 0 18px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.35;
+      letter-spacing: -.02em;
+    }
+
+    .method-copy p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.9; }
+    .method-copy p + p { margin-top: 18px; }
+    .method-copy strong { color: var(--ink); font-weight: 650; }
+
+    .simulation-section {
+      margin-top: 76px;
+      padding-top: 60px;
+      border-top: 1px solid var(--line);
+      scroll-margin-top: 90px;
+    }
+
+    .simulation-section .main-view { aspect-ratio: 4 / 3; }
+    .simulation-section .demo-visual video { object-fit: contain; }
 
     .section-head {
       display: flex;
@@ -320,20 +440,28 @@
       .demo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .section-head { align-items: start; flex-direction: column; }
       .section-note { max-width: 600px; text-align: left; }
+      .method-row, .method-row-reverse { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+      .method-row-reverse .method-image, .method-row-reverse .method-copy { grid-column: auto; grid-row: auto; }
     }
 
     @media (max-width: 620px) {
       .shell { width: calc(100% - 30px); max-width: calc(100% - 30px); }
       .topbar-inner { min-height: 59px; }
       .nav { gap: 15px; font-size: 12px; }
-      .nav a:last-child { display: none; }
       .hero { padding: 53px 0 48px; }
       h1 { font-size: 39px; letter-spacing: -.035em; overflow-wrap: anywhere; word-break: break-word; }
       h1, .section-head h2, .task-title { width: 100%; max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
       .authors { margin-top: 27px; gap: 3px 13px; font-size: 14px; }
+      .author-row { gap: 3px 13px; }
       .affiliations { margin-top: 16px; font-size: 13px; }
       .notes { font-size: 11px; line-height: 1.8; }
       main { padding: 47px 0 64px; }
+      .method-section { padding-bottom: 44px; margin-bottom: 44px; }
+      .method-section .section-head { margin-bottom: 28px; }
+      .method-row + .method-row { margin-top: 34px; padding-top: 34px; }
+      .method-copy h3 { font-size: 21px; margin-bottom: 13px; }
+      .method-copy p { font-size: 13px; }
+      .simulation-section { margin-top: 52px; padding-top: 44px; }
       .section-head { margin-bottom: 25px; }
       .section-head h2 { font-size: 34px; }
       .task-row + .task-row { margin-top: 34px; }
@@ -348,9 +476,10 @@
   <header class="topbar">
     <div class="shell topbar-inner">
       <a class="brand" href="#top" aria-label="DeltaWAM home"><span>Delta</span>WAM</a>
-      <nav class="nav" aria-label="Page navigation">
-        <a href="#paper">Paper</a>
-        <a href="#evaluation">Real World Evaluation</a>
+      <nav class="nav" aria-label="Project resources">
+        <a href="https://arxiv.org/abs/2600.00000" target="_blank" rel="noopener noreferrer">Paper</a>
+        <a href="https://github.com/AIGeeksGroup/DeltaWAM" target="_blank" rel="noopener noreferrer">Code</a>
+        <a href="https://huggingface.co/AIGeeksGroup/DeltaWAM" target="_blank" rel="noopener noreferrer">Model</a>
       </nav>
     </div>
   </header>
@@ -361,13 +490,19 @@
       <h1><span>DeltaWAM</span>: Delta World Action Models for Bimanual Manipulation</h1>
 
       <div class="authors" aria-label="Authors">
-        <span class="author"><strong>Han Yan</strong><sup>1*</sup></span>
-        <span class="author"><strong>Zishang Xiang</strong><sup>1*</sup></span>
-        <span class="author"><strong>Haokai Jiang</strong><sup>1*</sup></span>
-        <span class="author"><strong>Zeyu Zhang</strong><sup>1*&dagger;</sup></span>
-        <span class="author"><strong>Yandong Guo</strong><sup>2</sup></span>
-        <span class="author"><strong>Boxin Shi</strong><sup>1</sup></span>
-        <span class="author"><strong>Hao Tang</strong><sup>1&ddagger;</sup></span>
+        <div class="author-row">
+          <span class="author"><strong>Han Yan</strong><sup>1*</sup></span>
+          <span class="author"><strong>Zishang Xiang</strong><sup>1*</sup></span>
+          <span class="author"><strong>Haokai Jiang</strong><sup>1*</sup></span>
+          <span class="author"><strong><a href="https://steve-zeyu-zhang.github.io/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Zeyu Zhang</a></strong><sup>1*&dagger;</sup></span>
+          <span class="author"><strong><a href="https://kelu007.github.io/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Qilin Wang</a></strong><sup>1</sup></span>
+        </div>
+        <div class="author-row">
+          <span class="author"><strong><a href="https://weiyuguo.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Weiyu Guo</a></strong><sup>2</sup></span>
+          <span class="author"><strong><a href="https://scholar.google.com/citations?user=fWDoWsQAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Yandong Guo</a></strong><sup>2</sup></span>
+          <span class="author"><strong><a href="https://scholar.google.com/citations?user=K1LjZxcAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Boxin Shi</a></strong><sup>1</sup></span>
+          <span class="author"><strong><a href="https://ha0tang.github.io/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Hao Tang</a></strong><sup>1&ddagger;</sup></span>
+        </div>
       </div>
 
       <div class="affiliations">
@@ -380,11 +515,65 @@
         <strong>&dagger;</strong> Project lead.&nbsp;&nbsp;
         <strong>&ddagger;</strong> Corresponding author.
       </div>
+
+      <nav class="project-links" aria-label="Project resources">
+        <a class="resource-button" href="https://arxiv.org/abs/2600.00000" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6M8 13h8M8 17h6"/></svg>
+          Paper
+        </a>
+        <a class="resource-button" href="https://github.com/AIGeeksGroup/DeltaWAM" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/></svg>
+          Code
+        </a>
+        <a class="resource-button" href="https://huggingface.co/AIGeeksGroup/DeltaWAM" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 9 5v8l-9 5-9-5V8l9-5ZM3 8l9 5 9-5M12 13v8"/></svg>
+          Model
+        </a>
+      </nav>
+
+      <div class="teaser-wrap">
+        <video class="teaser-video" width="1920" height="1080" autoplay muted loop playsinline controls preload="auto" aria-label="DeltaWAM teaser video">
+          <source src="deltawam_icra_teaser_v1.mp4" type="video/mp4">
+          Your browser does not support embedded video. <a href="deltawam_icra_teaser_v1.mp4">Open the DeltaWAM teaser video.</a>
+        </video>
+      </div>
     </div>
   </section>
 
-  <main id="evaluation">
-    <div class="shell">
+  <main>
+    <section class="method-section" id="method" aria-labelledby="method-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="method-title">Method Overview</h2>
+        </div>
+
+        <figure class="method-row">
+          <a class="method-image" href="fig/teaser_four_panel.png" target="_blank" rel="noopener noreferrer" aria-label="View the full-resolution DeltaWAM overview figure in a new tab">
+            <img src="fig/teaser_four_panel.png" width="2100" height="1073" loading="lazy" decoding="async" alt="Four-panel DeltaWAM overview comparing dense visual tokens with sparse visual deltas, Streaming Delta Memory, and evaluation results.">
+            <span class="figure-open">View full-size figure ↗</span>
+          </a>
+          <figcaption class="method-copy">
+            <h3>Sparse Visual Deltas &amp; Streaming Delta Memory</h3>
+            <p>DeltaWAM replaces dense future-frame modeling with sparse visual deltas and uses Streaming Delta Memory to update visual context incrementally, improving robustness while reducing training and inference costs.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="method-row method-row-reverse">
+          <a class="method-image" href="fig/architecture.png" target="_blank" rel="noopener noreferrer" aria-label="View the full-resolution DeltaWAM architecture figure in a new tab">
+            <img src="fig/architecture.png" width="2100" height="1716" loading="lazy" decoding="async" alt="DeltaWAM architectural variants, the detailed Anchor-Shared network with shared self-attention, and structured training and inference attention masks.">
+            <span class="figure-open">View full-size figure ↗</span>
+          </a>
+          <figcaption class="method-copy">
+            <h3>Overview of the DeltaWAM architecture.</h3>
+            <p><strong>(a)</strong> Three architectural variants: Anchor-Shared, Separated, and Action-Shared.</p>
+            <p><strong>(b)</strong> Detailed Anchor-Shared architecture, where the Anchor Network and Action DiT retain stream-specific transformations while interacting through layer-wise shared self-attention.</p>
+            <p><strong>(c)</strong> Structured attention masks regulating information flow among anchor, delta, and action tokens.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="shell" id="evaluation">
       <div class="section-head">
         <h2>Real World Evaluation</h2>
       </div>
@@ -587,6 +776,674 @@
         </div>
       </section>
     </div>
+
+    <section class="simulation-section" id="simulation" aria-labelledby="simulation-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="simulation-title">RoboTwin Simulation</h2>
+        </div>
+
+        <section class="task-row" aria-labelledby="sim-task-1-title">
+          <div class="task-heading">
+            <span class="task-number">Task 01</span>
+            <h3 class="task-title" id="sim-task-1-title">Adjust Bottle</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 1 eye-to-hand view"><source src="sim_h264/adjust_bottle/episode0_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 1 left eye-in-hand view"><source src="sim_h264/adjust_bottle/episode0_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 1 right eye-in-hand view"><source src="sim_h264/adjust_bottle/episode0_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T1 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 2 eye-to-hand view"><source src="sim_h264/adjust_bottle/episode0_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 2 left eye-in-hand view"><source src="sim_h264/adjust_bottle/episode0_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 2 right eye-in-hand view"><source src="sim_h264/adjust_bottle/episode0_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T1 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 3 eye-to-hand view"><source src="sim_h264/adjust_bottle/episode2_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 3 left eye-in-hand view"><source src="sim_h264/adjust_bottle/episode2_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Adjust Bottle sample 3 right eye-in-hand view"><source src="sim_h264/adjust_bottle/episode2_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T1 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-2-title">
+          <div class="task-heading">
+            <span class="task-number">Task 02</span>
+            <h3 class="task-title" id="sim-task-2-title">Beat Block with Hammer</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 1 eye-to-hand view"><source src="sim_h264/beat_block_hammer/episode0_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 1 left eye-in-hand view"><source src="sim_h264/beat_block_hammer/episode0_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 1 right eye-in-hand view"><source src="sim_h264/beat_block_hammer/episode0_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T2 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 2 eye-to-hand view"><source src="sim_h264/beat_block_hammer/episode0_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 2 left eye-in-hand view"><source src="sim_h264/beat_block_hammer/episode0_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 2 right eye-in-hand view"><source src="sim_h264/beat_block_hammer/episode0_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T2 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 3 eye-to-hand view"><source src="sim_h264/beat_block_hammer/episode2_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 3 left eye-in-hand view"><source src="sim_h264/beat_block_hammer/episode2_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Beat Block with Hammer sample 3 right eye-in-hand view"><source src="sim_h264/beat_block_hammer/episode2_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T2 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-3-title">
+          <div class="task-heading">
+            <span class="task-number">Task 03</span>
+            <h3 class="task-title" id="sim-task-3-title">Rank Blocks by Color</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 1 eye-to-hand view"><source src="sim_h264/blocks_ranking_rgb/episode1_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 1 left eye-in-hand view"><source src="sim_h264/blocks_ranking_rgb/episode1_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 1 right eye-in-hand view"><source src="sim_h264/blocks_ranking_rgb/episode1_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T3 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 2 eye-to-hand view"><source src="sim_h264/blocks_ranking_rgb/episode11_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 2 left eye-in-hand view"><source src="sim_h264/blocks_ranking_rgb/episode11_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 2 right eye-in-hand view"><source src="sim_h264/blocks_ranking_rgb/episode11_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T3 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 3 eye-to-hand view"><source src="sim_h264/blocks_ranking_rgb/episode18_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 3 left eye-in-hand view"><source src="sim_h264/blocks_ranking_rgb/episode18_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Color sample 3 right eye-in-hand view"><source src="sim_h264/blocks_ranking_rgb/episode18_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T3 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-4-title">
+          <div class="task-heading">
+            <span class="task-number">Task 04</span>
+            <h3 class="task-title" id="sim-task-4-title">Rank Blocks by Size</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 1 eye-to-hand view"><source src="sim_h264/blocks_ranking_size/episode2_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 1 left eye-in-hand view"><source src="sim_h264/blocks_ranking_size/episode2_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 1 right eye-in-hand view"><source src="sim_h264/blocks_ranking_size/episode2_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T4 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 2 eye-to-hand view"><source src="sim_h264/blocks_ranking_size/episode0_randomized-true_success-true%20%285%29/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 2 left eye-in-hand view"><source src="sim_h264/blocks_ranking_size/episode0_randomized-true_success-true%20%285%29/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 2 right eye-in-hand view"><source src="sim_h264/blocks_ranking_size/episode0_randomized-true_success-true%20%285%29/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T4 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 3 eye-to-hand view"><source src="sim_h264/blocks_ranking_size/episode1_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 3 left eye-in-hand view"><source src="sim_h264/blocks_ranking_size/episode1_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Rank Blocks by Size sample 3 right eye-in-hand view"><source src="sim_h264/blocks_ranking_size/episode1_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T4 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-5-title">
+          <div class="task-heading">
+            <span class="task-number">Task 05</span>
+            <h3 class="task-title" id="sim-task-5-title">Click Alarm Clock</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 1 eye-to-hand view"><source src="sim_h264/click_alarmclock/episode6_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 1 left eye-in-hand view"><source src="sim_h264/click_alarmclock/episode6_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 1 right eye-in-hand view"><source src="sim_h264/click_alarmclock/episode6_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T5 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 2 eye-to-hand view"><source src="sim_h264/click_alarmclock/episode7_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 2 left eye-in-hand view"><source src="sim_h264/click_alarmclock/episode7_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 2 right eye-in-hand view"><source src="sim_h264/click_alarmclock/episode7_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T5 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 3 eye-to-hand view"><source src="sim_h264/click_alarmclock/episode9_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 3 left eye-in-hand view"><source src="sim_h264/click_alarmclock/episode9_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Alarm Clock sample 3 right eye-in-hand view"><source src="sim_h264/click_alarmclock/episode9_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T5 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-6-title">
+          <div class="task-heading">
+            <span class="task-number">Task 06</span>
+            <h3 class="task-title" id="sim-task-6-title">Click Bell</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 1 eye-to-hand view"><source src="sim_h264/click_bell/episode9_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 1 left eye-in-hand view"><source src="sim_h264/click_bell/episode9_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 1 right eye-in-hand view"><source src="sim_h264/click_bell/episode9_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T6 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 2 eye-to-hand view"><source src="sim_h264/click_bell/episode3_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 2 left eye-in-hand view"><source src="sim_h264/click_bell/episode3_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 2 right eye-in-hand view"><source src="sim_h264/click_bell/episode3_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T6 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 3 eye-to-hand view"><source src="sim_h264/click_bell/episode44_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 3 left eye-in-hand view"><source src="sim_h264/click_bell/episode44_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Click Bell sample 3 right eye-in-hand view"><source src="sim_h264/click_bell/episode44_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T6 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-7-title">
+          <div class="task-heading">
+            <span class="task-number">Task 07</span>
+            <h3 class="task-title" id="sim-task-7-title">Dump Bin into Big Bin</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 1 eye-to-hand view"><source src="sim_h264/dump_bin_bigbin/episode0_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 1 left eye-in-hand view"><source src="sim_h264/dump_bin_bigbin/episode0_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 1 right eye-in-hand view"><source src="sim_h264/dump_bin_bigbin/episode0_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T7 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 2 eye-to-hand view"><source src="sim_h264/dump_bin_bigbin/episode0_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 2 left eye-in-hand view"><source src="sim_h264/dump_bin_bigbin/episode0_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 2 right eye-in-hand view"><source src="sim_h264/dump_bin_bigbin/episode0_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T7 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 3 eye-to-hand view"><source src="sim_h264/dump_bin_bigbin/episode9_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 3 left eye-in-hand view"><source src="sim_h264/dump_bin_bigbin/episode9_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Dump Bin into Big Bin sample 3 right eye-in-hand view"><source src="sim_h264/dump_bin_bigbin/episode9_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T7 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-8-title">
+          <div class="task-heading">
+            <span class="task-number">Task 08</span>
+            <h3 class="task-title" id="sim-task-8-title">Grab Roller</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 1 eye-to-hand view"><source src="sim_h264/grab_roller/episode0_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 1 left eye-in-hand view"><source src="sim_h264/grab_roller/episode0_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 1 right eye-in-hand view"><source src="sim_h264/grab_roller/episode0_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T8 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 2 eye-to-hand view"><source src="sim_h264/grab_roller/episode0_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 2 left eye-in-hand view"><source src="sim_h264/grab_roller/episode0_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 2 right eye-in-hand view"><source src="sim_h264/grab_roller/episode0_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T8 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 3 eye-to-hand view"><source src="sim_h264/grab_roller/episode1_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 3 left eye-in-hand view"><source src="sim_h264/grab_roller/episode1_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Grab Roller sample 3 right eye-in-hand view"><source src="sim_h264/grab_roller/episode1_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T8 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-9-title">
+          <div class="task-heading">
+            <span class="task-number">Task 09</span>
+            <h3 class="task-title" id="sim-task-9-title">Handover Block</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 1 eye-to-hand view"><source src="sim_h264/handover_block/episode0_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 1 left eye-in-hand view"><source src="sim_h264/handover_block/episode0_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 1 right eye-in-hand view"><source src="sim_h264/handover_block/episode0_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T9 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 2 eye-to-hand view"><source src="sim_h264/handover_block/episode1_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 2 left eye-in-hand view"><source src="sim_h264/handover_block/episode1_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 2 right eye-in-hand view"><source src="sim_h264/handover_block/episode1_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T9 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 3 eye-to-hand view"><source src="sim_h264/handover_block/episode12_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 3 left eye-in-hand view"><source src="sim_h264/handover_block/episode12_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Block sample 3 right eye-in-hand view"><source src="sim_h264/handover_block/episode12_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T9 / 03</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="task-row" aria-labelledby="sim-task-10-title">
+          <div class="task-heading">
+            <span class="task-number">Task 10</span>
+            <h3 class="task-title" id="sim-task-10-title">Handover Microphone</h3>
+          </div>
+          <div class="demo-grid">
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 1 eye-to-hand view"><source src="sim_h264/handover_mic/episode0_randomized-false_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 1 left eye-in-hand view"><source src="sim_h264/handover_mic/episode0_randomized-false_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 1 right eye-in-hand view"><source src="sim_h264/handover_mic/episode0_randomized-false_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 01</p><span class="demo-code">T10 / 01</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 2 eye-to-hand view"><source src="sim_h264/handover_mic/episode0_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 2 left eye-in-hand view"><source src="sim_h264/handover_mic/episode0_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 2 right eye-in-hand view"><source src="sim_h264/handover_mic/episode0_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 02</p><span class="demo-code">T10 / 02</span></div>
+            </article>
+            <article class="demo-card">
+              <div class="demo-visual">
+                <figure class="main-view">
+                  <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 3 eye-to-hand view"><source src="sim_h264/handover_mic/episode1_randomized-true_success-true/high_rgb.mp4" type="video/mp4"></video>
+                  <figcaption class="view-label">Eye-to-hand</figcaption>
+                </figure>
+                <div class="wrist-stack">
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 3 left eye-in-hand view"><source src="sim_h264/handover_mic/episode1_randomized-true_success-true/left_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Left eye-in-hand</figcaption>
+                  </figure>
+                  <figure class="wrist-view">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="RoboTwin Handover Microphone sample 3 right eye-in-hand view"><source src="sim_h264/handover_mic/episode1_randomized-true_success-true/right_wrist_rgb.mp4" type="video/mp4"></video>
+                    <figcaption class="view-label">Right eye-in-hand</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="demo-meta"><p class="demo-name">Sample 03</p><span class="demo-code">T10 / 03</span></div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -597,6 +1454,10 @@
   </footer>
 
   <script>
+    const teaser = document.querySelector('.teaser-video');
+    teaser.muted = true;
+    teaser.play().catch(() => {});
+
     document.querySelectorAll('.demo-card').forEach((card) => {
       const videos = [...card.querySelectorAll('video')];
       let shortestDuration = 0;
