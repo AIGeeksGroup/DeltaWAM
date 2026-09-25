@@ -8,4 +8,4 @@ This repo is the official implementation of:
 >
 > \*Equal contribution. <sup>†</sup>Project lead. <sup>‡</sup>Corresponding author.
 >
-> ### [Paper](PAPER_URL) | [Website](https://aigeeksgroup.github.io/DeltaWAM/) | [Model](https://huggingface.co/AIGeeksGroup/DeltaWAM)
+> ### [Paper](https://arxiv.org/abs/2609.28811) | [Website](https://aigeeksgroup.github.io/DeltaWAM/) | [Model](https://huggingface.co/AIGeeksGroup/DeltaWAM)
