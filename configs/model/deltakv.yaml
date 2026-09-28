@@ -1,0 +1,25 @@
+defaults:
+  - deltawam_wan_delta_light
+  - _self_
+
+_target_: deltawam.runtime.create_deltakv
+
+deltakv:
+  min_history_length: 0
+  # With observations every 4 action steps, replanning every 24 steps, and a
+  # refresh every four inferences, the last reuse sees 3 * (24 / 4) = 18
+  # incremental delta tokens.
+  max_history_length: 18
+  update_stride: 1
+  action_horizon: 32
+  # Reuse the previous observation's frozen DINOv3 features on the next append.
+  cache_previous_image_features: true
+  # Reserve the maximum streaming history once and write new layer K/V in place.
+  preallocate_kv_cache: true
+  # Cache the fixed Delta pre-DiT text embedding and per-layer cross-attention
+  # context K/V once per reference refresh.
+  cache_delta_context_kv: true
+
+loss:
+  lambda_deltakv_action: 1.0
+  lambda_delta: 0.1

@@ -1,0 +1,58 @@
+# @package _global_
+
+defaults:
+  - override /data: robotwin_deltakv
+  - override /model: deltakv
+  - _self_
+
+robotwin_subset:
+  task_mapping_file: ./configs/data/robotwin2_official_task_mapping.json
+  train_task_names:
+    - adjust_bottle
+    - beat_block_hammer
+    - blocks_ranking_size
+    - click_alarmclock
+    - click_bell
+
+  eval_task_names: ${robotwin_subset.train_task_names}
+
+batch_size: 16
+num_workers: 4
+
+lr_scheduler_type: cosine
+learning_rate: 1e-4
+num_epochs: 5
+max_steps: 15000
+log_every: 10
+save_every: 5000
+eval_every: 0
+
+gradient_accumulation_steps: 1
+weight_decay: 1e-2
+resume: null
+
+EVALUATION:
+  # Match the ordinary DeltaWAM baseline: 33 frames -> 32 actions, with the
+  # RobotWin simulation default of executing 24 actions before replanning.
+  action_horizon: 32
+  replan_steps: 24
+  # Number of executed actions between real intermediate observations. Each
+  # observation appends one DeltaTok KV without triggering action replanning.
+  deltakv_observation_interval: 4
+  # Delta encoding is submitted on a dedicated CUDA stream and synchronized
+  # only when the next action chunk consumes the updated cache.
+  deltakv_async_encoding: true
+  # Prepare the last Delta KV four executed actions before a reuse replan. The
+  # replan waits only if that side-stream append has not finished, then ActionDiT
+  # consumes the prepared cache without encoding the current replan image.
+  # Set to 0 to disable this mode. Refresh replans remain synchronous.
+  deltakv_pre_replan_append_steps: 4
+  # Accumulate periodic observations and submit all pending DeltaTok tokens in
+  # one causal Wan cached forward at the pre-replan observation.
+  deltakv_batch_pre_replan_append: true
+  deltakv_async_replan_append: false
+
+  # Number of action-chunk inference calls between dense Wan reference
+  # refreshes. This counts policy inferences, not appended DeltaTok tokens:
+  # inference #1 builds a reference, #2-#4 reuse it, and #5 refreshes it.
+  deltakv_refresh_interval: 4

@@ -1,0 +1,21 @@
+defaults:
+  - robotwin
+  - _self_
+
+train:
+  num_frames: 33
+  video_query_indices: [-72, -68, -64, -60, -56, -52, -48, -44, -40, -36, -32, -28, -24, -20, -16, -12, -8, -4, 0, 4, 8, 12, 16, 20, 24, 28, 32]
+  dynamic_video_history_max: 18
+  dynamic_video_future_length: 8
+  processor:
+    num_image_steps: 27
+  skip_padding_as_possible: false
+
+val:
+  num_frames: 33
+  video_query_indices: [-72, -68, -64, -60, -56, -52, -48, -44, -40, -36, -32, -28, -24, -20, -16, -12, -8, -4, 0, 4, 8, 12, 16, 20, 24, 28, 32]
+  dynamic_video_history_max: 18
+  dynamic_video_future_length: 8
+  processor:
+    num_image_steps: 27
+  skip_padding_as_possible: false
